@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet"> 
+  <title>Frontend Mentor | Todo app</title>
+</head>
+<body class="body body--light">
+  <div class="banner banner--light"></div>
+
+  <header class="header header--light">
+    <p class="header__logo">
+      Todo
+    </p>
+
+    <div class="header__toggle">
+      <label class="toggle__checkbox">
+        <input type="checkbox" id="checkbox">
+      </label>
+
+      <div class="toggle__background">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"><path fill="#FFF" fill-rule="evenodd" d="M13 21a1 1 0 011 1v3a1 1 0 11-2 0v-3a1 1 0 011-1zm-5.657-2.343a1 1 0 010 1.414l-2.121 2.121a1 1 0 01-1.414-1.414l2.12-2.121a1 1 0 011.415 0zm12.728 0l2.121 2.121a1 1 0 01-1.414 1.414l-2.121-2.12a1 1 0 011.414-1.415zM13 8a5 5 0 110 10 5 5 0 010-10zm12 4a1 1 0 110 2h-3a1 1 0 110-2h3zM4 12a1 1 0 110 2H1a1 1 0 110-2h3zm18.192-8.192a1 1 0 010 1.414l-2.12 2.121a1 1 0 01-1.415-1.414l2.121-2.121a1 1 0 011.414 0zm-16.97 0l2.121 2.12A1 1 0 015.93 7.344L3.808 5.222a1 1 0 011.414-1.414zM13 0a1 1 0 011 1v3a1 1 0 11-2 0V1a1 1 0 011-1z"/></svg>
+        <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="26" height="26"><path fill="#FFF" fill-rule="evenodd" d="M13 0c.81 0 1.603.074 2.373.216C10.593 1.199 7 5.43 7 10.5 7 16.299 11.701 21 17.5 21c2.996 0 5.7-1.255 7.613-3.268C23.22 22.572 18.51 26 13 26 5.82 26 0 20.18 0 13S5.82 0 13 0z"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <main class="main main--light">
+    <div class="todo">
+      <div class="todo__newItem">
+        <button class="newItem__button newItem__button--empty"></button>
+        <input id="input" type="text" maxlength="60" placeholder="Create a new todo...">
+        <button class="newItem__button newItem__button--new"></button>
+      </div>
+
+      <div class="todo__list">
+        <div class="todo__item todo__item--completed" draggable="true">
+          <button class="item__button item__button--check"></button>
+          <p class="item__title">0 Complete online Javascript course</p>
+          <button class="item__button item__button--close"></button>
+        </div>
+        
+        <div class="todo__item" draggable="true">
+          <button class="item__button item__button--check"></button>
+          <p class="item__title">1 Jog around the park</p>
+          <button class="item__button item__button--close"></button>
+        </div>
+        
+        <div class="todo__item" draggable="true">
+          <button class="item__button item__button--check"></button>
+          <p class="item__title">2 10 minutes meditation</p>
+          <button class="item__button item__button--close"></button>
+        </div>
+        
+        <div class="todo__item" draggable="true">
+          <button class="item__button item__button--check"></button>
+          <p class="item__title">3 Read for 1 hour</p>
+          <button class="item__button item__button--close"></button>
+        </div>
+        
+        <div class="todo__item" draggable="true">
+          <button class="item__button item__button--check"></button>
+          <p class="item__title">4 Pick up groceries</p>
+          <button class="item__button item__button--close"></button>
+        </div>
+        
+        <div class="todo__item" draggable="true">
+          <button class="item__button item__button--check"></button>
+          <p class="item__title">5 Complete Todo app on Frontend Mentor</p>
+          <button class="item__button item__button--close"></button>
+        </div>
+      </div>
+      
+      <div class="todo__menu">
+        <p class="menu__counter">items left</p> 
+      
+        <div class="menu__browse">
+          <button id="showAll" class="menu__button menu__button--clicked">All</button>
+          <button id="showActive" class="menu__button">Active </button>
+          <button id="showCompleted" class="menu__button">Completed</button>
+        </div>
+      
+        <button class="menu__button menu__button--clear">Clear Completed</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer footer--light">
+    <p class="footer__hint">
+      Drag and drop to reorder list
+    </p>
+
+    <p class="footer__attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+      Coded by <a href="https://github.com/AdamMintaj">Adam Mintaj</a>.
+    </p>    
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
