@@ -367,15 +367,23 @@ html {
 					cursor: grabbing;
 				}
 
-				// &--dropAbove {
-				// 	transition: 0s;
-				// 	border-top-width: 1rem;
-				// }
+				&--dropAbove {
+					transition: 0s;
+					background-image: linear-gradient(
+						to bottom,
+						$backgroundLight,
+						$itemBackgroundLight
+					);
+				}
 
-				// &--dropBelow {
-				// 	transition: 0s;
-				// 	border-bottom-width: 1rem;
-				// }
+				&--dropBelow {
+					transition: 0s;
+					background-image: linear-gradient(
+						to bottom,
+						$itemBackgroundLight,
+						$backgroundLight
+					);
+				}
 
 				.item {
 					&__button {

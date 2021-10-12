@@ -1,35 +1,32 @@
-// Theme switcher 
-    // Theme switcher variables
-    // Theme switcher
-    // Change between sun and moon icon
-    // Change between light and dark version of banner image
+// 1.0 Theme switcher 
+    // 1.1 Theme switcher variables
+    // 1.2 Theme switcher
+    // 1.3 Change between sun and moon icon
+    // 1.4 Change between light and dark version of banner image
 
-// TODO app
-    // Buttons, items and other variables that control the app
-    // Update the variables
-    // Add event listeners to new items
-    // Toggle whether an item's completed or not
-    // Close a completed item
-    // Count the number of uncompleted items
-    // Clear all completed items
-    // Browse menu
-    // Set an id for every item
-    // Add new memos
-    // Show item's overflown text
-    // Check if item's title is overflowing
-    // Scroll the overflown content back and forth on click
-
-// Reorder items by dragging
-    // Drag and drop functions
-        // Start dragging
-        // Calculate whether the element should be dropped above or below target
-        // Drop the dragged item
+// 2.0 TODO app
+    // 2.1 Buttons, items and other variables that control the app
+    // 2.2 Update the variables
+    // 2.3 Add event listeners to new items
+    // 2.4 Toggle whether an item's completed or not
+    // 2.5 Close a completed item
+    // 2.6 Count the number of uncompleted items
+    // 2.7 Clear all completed items
+    // 2.8 Browse menu
+    // 2.9 Set an id for every item
+    // 2.10 Add new memos
+    // 2.11 Show item's overflown text
+        // 2.11.1 Check if item's title is overflowing
+        // 2.11.2 Scroll the overflown content back and forth on click
+    // 2.12 Reorder items by dragging
+        // 2.12.1 Start dragging
+        // 2.12.2 Calculate whether the element should be dropped above or below target
+        // 2.12.3 Drop the dragged item
 
 // _______________________________________________________________________________________________
 
-// Theme switcher
-    // Theme switcher variables 
-
+// 1.0 Theme switcher
+    // 1.1 Theme switcher variables 
     const checkbox:HTMLInputElement = document.getElementById("checkbox")!;
     const toggleBackground: HTMLElement = document.querySelector(".toggle__background")!;
     const banner:HTMLElement = document.querySelector(".banner")!;
@@ -39,7 +36,7 @@
 
     checkbox.addEventListener("click", switchTheme);
 
-// Theme switcher
+    // 1.2 Theme switcher
     function switchTheme() {
         if(animationRunning) {
             return;
@@ -61,7 +58,7 @@
         document.querySelector("footer")?.classList.toggle("footer--light");
     }
 
-// Change between sun and moon icon
+    // 1.3 Change between sun and moon icon
     function rotateToggleBackground() {
         animationRunning = true;
         rotation = rotation + 180;
@@ -78,7 +75,7 @@
         animationRunning = false;
     })
 
-// Change between light and dark version of banner image
+    // 1.4 Change between light and dark version of banner image
     function changeBanner() {
         banner.style.opacity = "0";
         
@@ -95,8 +92,8 @@
         })
     }
 
-// Buttons, items and other variables that control the app
-    
+// 2.0 TODO app
+    // 2.1 Buttons, items and other variables that control the app
     let items = document.querySelectorAll(".todo__item");
     let itemsCompleted = document.querySelectorAll(".todo__item--completed");
     let checkButtons = document.querySelectorAll(".item__button--check");
@@ -116,7 +113,7 @@
     
     input.value = "";
     
-    // Update the variables
+    // 2.2 Update the variables
     function setVariables() {
         itemTitles = document.querySelectorAll(".item__title");
         items = document.querySelectorAll(".todo__item");
@@ -125,8 +122,7 @@
         closeButtons = document.querySelectorAll(".item__button--close");
     }
 
-// Add event listeners to new items
-
+    // 2.3 Add event listeners to new items
     function setListeners() {
         checkButtons.forEach(button => button.addEventListener("click", markAsCompleted));
         closeButtons.forEach(button => button.addEventListener("click", close));
@@ -144,25 +140,27 @@
         }));
 
         itemTitles.forEach(title => checkOverflow(title));
+
+        items.forEach(item => item.addEventListener("dragleave", dragLeave));
     }
 
     setListeners();
     
-// Toggle whether an item's completed or not
+    // 2.4 Toggle whether an item's completed or not
     function markAsCompleted(this:HTMLElement) {
         this.parentElement!.classList.toggle("todo__item--completed");
         setVariables();
         setCounter();
     }
     
-// Close a completed item
+    // 2.5 Close a completed item
     function close(this:HTMLElement) {
         this.parentElement!.remove();
         setVariables();
         setCounter();
     }
     
-// Count the number of uncompleted items
+    // 2.6 Count the number of uncompleted items
     function setCounter() {
         let itemsLeft: number = items.length - itemsCompleted.length;
         counter.innerHTML = `${itemsLeft} items left`;
@@ -170,70 +168,70 @@
 
     setCounter();
 
-// Clear all completed items
+    // 2.7 Clear all completed items
 
-clearAllButton.addEventListener("click", ()=> {
-    itemsCompleted.forEach(item => item.remove());
-    setVariables();
-    setCounter();
-});
+    clearAllButton.addEventListener("click", ()=> {
+        itemsCompleted.forEach(item => item.remove());
+        setVariables();
+        setCounter();
+    });
 
-// Browse menu
+    // 2.8 Browse menu
 
-showAllButton.addEventListener("click", function (this:HTMLElement) {
-    showAll();
-    markActiveButton(this);
-});
+    showAllButton.addEventListener("click", function (this:HTMLElement) {
+        showAll();
+        markActiveButton(this);
+    });
 
-showActiveButton.addEventListener("click", function (this:HTMLElement) {
-    showActive();
-    markActiveButton(this);
-});
+    showActiveButton.addEventListener("click", function (this:HTMLElement) {
+        showActive();
+        markActiveButton(this);
+    });
 
-showCompletedButton.addEventListener("click", function (this:HTMLElement) {
-    showCompleted();
-    markActiveButton(this);
-});
+    showCompletedButton.addEventListener("click", function (this:HTMLElement) {
+        showCompleted();
+        markActiveButton(this);
+    });
 
-function showAll() {
-    items.forEach(item => item.style.display = "flex");
-}
+    function showAll() {
+        items.forEach(item => item.style.display = "flex");
+    }
 
-function showActive() {
+    function showActive() {
+        items.forEach(item => {
+            if(item.classList.contains("todo__item--completed")) {
+                item.style.display = "none";
+            }
+            else {
+                item.style.display = "flex";
+            }
+        })
+    }
+
+    function showCompleted() {
+        items.forEach(item => {
+            if(item.classList.contains("todo__item--completed")) {
+                item.style.display = "flex";
+            }
+            else {
+                item.style.display = "none";
+            }
+        })
+    }
+
+    function markActiveButton(button:HTMLElement) {
+        Array.from(browseButtons).forEach(item => item.classList.remove("menu__button--clicked"));
+        button.classList.add("menu__button--clicked");
+    }
+
+    // 2.9 Set an id for every item
+
     items.forEach(item => {
-        if(item.classList.contains("todo__item--completed")) {
-            item.style.display = "none";
-        }
-        else {
-            item.style.display = "flex";
-        }
-    })
-}
+        item.setAttribute("id", idToken.toString());
+        idToken++;
+    });
 
-function showCompleted() {
-    items.forEach(item => {
-        if(item.classList.contains("todo__item--completed")) {
-            item.style.display = "flex";
-        }
-        else {
-            item.style.display = "none";
-        }
-    })
-}
-
-function markActiveButton(button:HTMLElement) {
-    Array.from(browseButtons).forEach(item => item.classList.remove("menu__button--clicked"));
-    button.classList.add("menu__button--clicked");
-}
-
-// Set an id for every item
-
-items.forEach(item => {
-    item.setAttribute("id", idToken.toString());
-    idToken++;
-});
-
-// Add new memos
+    // 2.10 Add new memos
 
     addNewButton.addEventListener("click", createNewItem);
     input.addEventListener("keydown", (event)=> {
@@ -294,108 +292,100 @@ items.forEach(item => {
         setListeners();
     }
 
-// Show item's overflown text
+    // 2.11 Show item's overflown text
+        // 2.11.1 Check if item's title is overflowing
+        function checkOverflow (title:HTMLElement) {
+            let elementWidth = title.scrollWidth;
+            let textboxWidth = title.parentElement!.clientWidth;
 
-    // Check if item's title is overflowing
-    function checkOverflow (title:HTMLElement) {
-        let elementWidth = title.scrollWidth;
-        let textboxWidth = title.parentElement!.clientWidth;
-
-        if((elementWidth - textboxWidth) > 0) {
-            title.addEventListener("click", scroll);
-            title.style.cursor = "pointer";
-        }
-    }
-
-    // Scroll the overflown content back and forth on click
-    function scroll(this:HTMLElement) {
-        this.style.overflow = "visible";
-        this.style.transition = "0s";
-        let overflow = this.scrollWidth - this.parentElement!.clientWidth;
-        let translation = 0;
-        const element = this;
-
-        window.requestAnimationFrame(scrollLeft);
-
-        function scrollLeft() {
-            translation++;
-            element.style.transform = `translateX(-${translation}px)`;
-
-            if(translation < (overflow + 40))
-                window.requestAnimationFrame(scrollLeft);
-            else if(translation >= (overflow + 40))
-                window.requestAnimationFrame(scrollRight);
-        }
-
-        function scrollRight() {
-            translation--;
-            element.style.transform = `translateX(-${translation}px)`;
-
-            if (translation > 0)
-                window.requestAnimationFrame(scrollRight);
-            if (translation <= 0) {
-                element.style.overflow = "hidden";
-                element.style.transition = "2.5s";
+            if((elementWidth - textboxWidth) > 0) {
+                title.addEventListener("click", scroll);
+                title.style.cursor = "pointer";
             }
         }
-    }
 
-// Reorder items by dragging
+        // 2.11.2 Scroll the overflown content back and forth on click
+        function scroll(this:HTMLElement) {
+            this.style.overflow = "visible";
+            this.style.transition = "0s";
+            let overflow = this.scrollWidth - this.parentElement!.clientWidth;
+            let translation = 0;
+            const element = this;
 
-    let dropPosition: "above" | "below";
+            window.requestAnimationFrame(scrollLeft);
 
-// Drag and drop functions
-// Start dragging
-    function dragStart(event, item: HTMLElement) {
-        event.dataTransfer.setData("text/plain", item.getAttribute("id"));
-        item.classList.add("todo__item--dragging");
-        item.style.transition = "0s";
-    }
+            function scrollLeft() {
+                translation++;
+                element.style.transform = `translateX(-${translation}px)`;
 
-// Calculate whether the element should be dropped above or below target
-    function dragOver(event, item) {
-        event.preventDefault();
-        let dropTarget = item.getBoundingClientRect();
+                if(translation < (overflow + 40))
+                    window.requestAnimationFrame(scrollLeft);
+                else if(translation >= (overflow + 40))
+                    window.requestAnimationFrame(scrollRight);
+            }
 
-        if(event.clientY <= (dropTarget.top + (dropTarget.height/2))){
-            dropPosition = "above";
-            // item.classList.add("todo__item--dropAbove");
-            // item.classList.remove("todo__item--dropBelow");
+            function scrollRight() {
+                translation--;
+                element.style.transform = `translateX(-${translation}px)`;
+
+                if (translation > 0)
+                    window.requestAnimationFrame(scrollRight);
+                if (translation <= 0) {
+                    element.style.overflow = "hidden";
+                    element.style.transition = "2.5s";
+                }
+            }
         }
-        if(event.clientY > (dropTarget.top + (dropTarget.height/2))) {
-            dropPosition = "below";
-            // item.classList.add("todo__item--dropBelow");
-            // item.classList.remove("todo__item--dropAbove");
-        }
-    }
 
-    // items.forEach(item => item.addEventListener("drop", event => {
-    //     drop(event, item);        
-    // }));
+    // 2.12 Reorder items by dragging
+        let dropPosition: "above" | "below";
 
-    // items.forEach(item => item.addEventListener("dragleave", dragLeave));
+        // 2.12.1 Start dragging
+            function dragStart(event, item: HTMLElement) {
+                event.dataTransfer.setData("text/plain", item.getAttribute("id"));
+                item.classList.add("todo__item--dragging");
+                item.style.transition = "0s";
+            }
 
-    // function dragLeave(this: any) {
-    //     this.classList.remove("todo__item--dropAbove");
-    //     this.classList.remove("todo__item--dropBelow");
-    // }
+        // 2.12.2 Calculate whether the element should be dropped above or below target
+        // Mark the place where the item is going to be dropped
+            function dragOver(event, item) {
+                event.preventDefault();
+                let dropTarget = item.getBoundingClientRect();
 
-// Drop the dragged item
-    function drop(event, item) {
-        event.preventDefault();
-        let data = event.dataTransfer.getData("text");
+                if(event.clientY <= (dropTarget.top + (dropTarget.height/2))){
+                    dropPosition = "above";
+                    item.classList.add("todo__item--dropAbove");
+                    item.classList.remove("todo__item--dropBelow");
+                }
+                if(event.clientY > (dropTarget.top + (dropTarget.height/2))) {
+                    dropPosition = "below";
+                    item.classList.add("todo__item--dropBelow");
+                    item.classList.remove("todo__item--dropAbove");
+                }
+            }
 
-        if(dropPosition == "above") {
-            list.insertBefore(document.getElementById(data)!, item);
-        }
-        else if(dropPosition == "below") {
-            list.insertBefore(document.getElementById(data)!, item.nextElementSibling);
-        }
-        document.getElementById(data)!.classList.remove("todo__item--dragging");
-        document.getElementById(data)!.style.transition = "2.5s";
+            function dragLeave(this: any) {
+                this.classList.remove("todo__item--dropAbove");
+                this.classList.remove("todo__item--dropBelow");
+            }
 
-        // item.classList.remove("todo__item--dropAbove");
-        // item.classList.remove("todo__item--dropBelow");
-        
-        event.dataTransfer.clearData();
-    }
+        // 2.12.3 Drop the dragged item
+            function drop(event, item) {
+                event.preventDefault();
+                let data = event.dataTransfer.getData("text");
+
+                if(dropPosition == "above") {
+                    list.insertBefore(document.getElementById(data)!, item);
+                }
+                else if(dropPosition == "below") {
+                    list.insertBefore(document.getElementById(data)!, item.nextElementSibling);
+                }
+                document.getElementById(data)!.classList.remove("todo__item--dragging");
+                document.getElementById(data)!.style.transition = "2.5s";
+
+                item.classList.remove("todo__item--dropAbove");
+                item.classList.remove("todo__item--dropBelow");
+                
+                event.dataTransfer.clearData();
+            }

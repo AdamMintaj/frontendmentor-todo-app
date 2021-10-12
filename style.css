@@ -364,6 +364,20 @@ html {
   cursor: grabbing;
 }
 
+.body .main .todo__item--dropAbove {
+  -webkit-transition: 0s;
+  transition: 0s;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#d2d3db), to(#fafafa));
+  background-image: linear-gradient(to bottom, #d2d3db, #fafafa);
+}
+
+.body .main .todo__item--dropBelow {
+  -webkit-transition: 0s;
+  transition: 0s;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#d2d3db));
+  background-image: linear-gradient(to bottom, #fafafa, #d2d3db);
+}
+
 .body .main .todo__item .item__button {
   cursor: pointer;
   -webkit-transition: 2.5s;

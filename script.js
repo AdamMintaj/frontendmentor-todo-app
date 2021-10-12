@@ -1,5 +1,30 @@
 "use strict";
-// These variables only control theme switcher
+// 1.0 Theme switcher 
+// 1.1 Theme switcher variables
+// 1.2 Theme switcher
+// 1.3 Change between sun and moon icon
+// 1.4 Change between light and dark version of banner image
+// 2.0 TODO app
+// 2.1 Buttons, items and other variables that control the app
+// 2.2 Update the variables
+// 2.3 Add event listeners to new items
+// 2.4 Toggle whether an item's completed or not
+// 2.5 Close a completed item
+// 2.6 Count the number of uncompleted items
+// 2.7 Clear all completed items
+// 2.8 Browse menu
+// 2.9 Set an id for every item
+// 2.10 Add new memos
+// 2.11 Show item's overflown text
+// 2.11.1 Check if item's title is overflowing
+// 2.11.2 Scroll the overflown content back and forth on click
+// 2.12 Reorder items by dragging
+// 2.12.1 Start dragging
+// 2.12.2 Calculate whether the element should be dropped above or below target
+// 2.12.3 Drop the dragged item
+// _______________________________________________________________________________________________
+// 1.0 Theme switcher
+// 1.1 Theme switcher variables 
 const checkbox = document.getElementById("checkbox");
 const toggleBackground = document.querySelector(".toggle__background");
 const banner = document.querySelector(".banner");
@@ -7,7 +32,7 @@ let rotation = 0;
 let animationRunning = false;
 checkbox.checked = false;
 checkbox.addEventListener("click", switchTheme);
-// Theme switcher
+// 1.2 Theme switcher
 function switchTheme() {
     var _a, _b, _c, _d, _e, _f, _g, _h;
     if (animationRunning) {
@@ -24,7 +49,7 @@ function switchTheme() {
     (_g = document.querySelector("footer")) === null || _g === void 0 ? void 0 : _g.classList.toggle("footer--dark");
     (_h = document.querySelector("footer")) === null || _h === void 0 ? void 0 : _h.classList.toggle("footer--light");
 }
-// Change between sun and moon icon
+// 1.3 Change between sun and moon icon
 function rotateToggleBackground() {
     animationRunning = true;
     rotation = rotation + 180;
@@ -39,7 +64,7 @@ toggleBackground.addEventListener("transitionend", () => {
     }
     animationRunning = false;
 });
-// Change between light and dark version of banner image
+// 1.4 Change between light and dark version of banner image
 function changeBanner() {
     banner.style.opacity = "0";
     banner.addEventListener("transitionend", () => {
@@ -54,7 +79,8 @@ function changeBanner() {
         }
     });
 }
-// Buttons, items and other variables that control the app
+// 2.0 TODO app
+// 2.1 Buttons, items and other variables that control the app
 let items = document.querySelectorAll(".todo__item");
 let itemsCompleted = document.querySelectorAll(".todo__item--completed");
 let checkButtons = document.querySelectorAll(".item__button--check");
@@ -72,7 +98,7 @@ let userInput = input.value;
 let idToken = 0;
 let itemTitles = document.querySelectorAll(".item__title");
 input.value = "";
-// Update the variables
+// 2.2 Update the variables
 function setVariables() {
     itemTitles = document.querySelectorAll(".item__title");
     items = document.querySelectorAll(".todo__item");
@@ -80,7 +106,7 @@ function setVariables() {
     checkButtons = document.querySelectorAll(".item__button--check");
     closeButtons = document.querySelectorAll(".item__button--close");
 }
-// Add event listeners to new items
+// 2.3 Add event listeners to new items
 function setListeners() {
     checkButtons.forEach(button => button.addEventListener("click", markAsCompleted));
     closeButtons.forEach(button => button.addEventListener("click", close));
@@ -94,33 +120,34 @@ function setListeners() {
         drop(event, item);
     }));
     itemTitles.forEach(title => checkOverflow(title));
+    items.forEach(item => item.addEventListener("dragleave", dragLeave));
 }
 setListeners();
-// Toggle whether an item's completed or not
+// 2.4 Toggle whether an item's completed or not
 function markAsCompleted() {
     this.parentElement.classList.toggle("todo__item--completed");
     setVariables();
     setCounter();
 }
-// Close a completed item
+// 2.5 Close a completed item
 function close() {
     this.parentElement.remove();
     setVariables();
     setCounter();
 }
-// Count the number of uncompleted items
+// 2.6 Count the number of uncompleted items
 function setCounter() {
     let itemsLeft = items.length - itemsCompleted.length;
     counter.innerHTML = `${itemsLeft} items left`;
 }
 setCounter();
-// Clear all completed items
+// 2.7 Clear all completed items
 clearAllButton.addEventListener("click", () => {
     itemsCompleted.forEach(item => item.remove());
     setVariables();
     setCounter();
 });
-// Browse menu
+// 2.8 Browse menu
 showAllButton.addEventListener("click", function () {
     showAll();
     markActiveButton(this);
@@ -160,12 +187,12 @@ function markActiveButton(button) {
     Array.from(browseButtons).forEach(item => item.classList.remove("menu__button--clicked"));
     button.classList.add("menu__button--clicked");
 }
-// Set an id for every item
+// 2.9 Set an id for every item
 items.forEach(item => {
     item.setAttribute("id", idToken.toString());
     idToken++;
 });
-// Add new memos
+// 2.10 Add new memos
 addNewButton.addEventListener("click", createNewItem);
 input.addEventListener("keydown", (event) => {
     if (event.key === "Enter")
@@ -218,8 +245,8 @@ function createNewItem() {
     setCounter();
     setListeners();
 }
-// Show item's overflown text
-// Check if item's title is overflowing
+// 2.11 Show item's overflown text
+// 2.11.1 Check if item's title is overflowing
 function checkOverflow(title) {
     let elementWidth = title.scrollWidth;
     let textboxWidth = title.parentElement.clientWidth;
@@ -228,7 +255,7 @@ function checkOverflow(title) {
         title.style.cursor = "pointer";
     }
 }
-// Scroll the overflown content back and forth on click
+// 2.11.2 Scroll the overflown content back and forth on click
 function scroll() {
     this.style.overflow = "visible";
     this.style.transition = "0s";
@@ -255,39 +282,35 @@ function scroll() {
         }
     }
 }
-// Reorder items by dragging
+// 2.12 Reorder items by dragging
 let dropPosition;
-// Drag and drop functions
-// Start dragging
+// 2.12.1 Start dragging
 function dragStart(event, item) {
     event.dataTransfer.setData("text/plain", item.getAttribute("id"));
     item.classList.add("todo__item--dragging");
     item.style.transition = "0s";
 }
-// Calculate whether the element should be dropped above or below target
+// 2.12.2 Calculate whether the element should be dropped above or below target
+// Mark the place where the item is going to be dropped
 function dragOver(event, item) {
     event.preventDefault();
     let dropTarget = item.getBoundingClientRect();
     if (event.clientY <= (dropTarget.top + (dropTarget.height / 2))) {
         dropPosition = "above";
-        // item.classList.add("todo__item--dropAbove");
-        // item.classList.remove("todo__item--dropBelow");
+        item.classList.add("todo__item--dropAbove");
+        item.classList.remove("todo__item--dropBelow");
     }
     if (event.clientY > (dropTarget.top + (dropTarget.height / 2))) {
         dropPosition = "below";
-        // item.classList.add("todo__item--dropBelow");
-        // item.classList.remove("todo__item--dropAbove");
+        item.classList.add("todo__item--dropBelow");
+        item.classList.remove("todo__item--dropAbove");
     }
 }
-// items.forEach(item => item.addEventListener("drop", event => {
-//     drop(event, item);        
-// }));
-// items.forEach(item => item.addEventListener("dragleave", dragLeave));
-// function dragLeave(this: any) {
-//     this.classList.remove("todo__item--dropAbove");
-//     this.classList.remove("todo__item--dropBelow");
-// }
-// Drop the dragged item
+function dragLeave() {
+    this.classList.remove("todo__item--dropAbove");
+    this.classList.remove("todo__item--dropBelow");
+}
+// 2.12.3 Drop the dragged item
 function drop(event, item) {
     event.preventDefault();
     let data = event.dataTransfer.getData("text");
@@ -299,8 +322,8 @@ function drop(event, item) {
     }
     document.getElementById(data).classList.remove("todo__item--dragging");
     document.getElementById(data).style.transition = "2.5s";
-    // item.classList.remove("todo__item--dropAbove");
-    // item.classList.remove("todo__item--dropBelow");
+    item.classList.remove("todo__item--dropAbove");
+    item.classList.remove("todo__item--dropBelow");
     event.dataTransfer.clearData();
 }
 //# sourceMappingURL=script.js.map
