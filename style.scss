@@ -367,6 +367,16 @@ html {
 					cursor: grabbing;
 				}
 
+				// &--dropAbove {
+				// 	transition: 0s;
+				// 	border-top-width: 1rem;
+				// }
+
+				// &--dropBelow {
+				// 	transition: 0s;
+				// 	border-bottom-width: 1rem;
+				// }
+
 				.item {
 					&__button {
 						cursor: pointer;
@@ -398,16 +408,20 @@ html {
 						}
 					}
 
+					&__textbox {
+						flex-grow: 2;
+						margin: 0 0.5rem;
+						overflow: hidden;
+					}
+
 					&__title {
+						text-overflow: ellipsis;
+						overflow: hidden;
+						white-space: nowrap;
 						font-size: 0.8rem;
 						height: 40%;
 						line-height: 1.2rem;
 						text-align: left;
-						white-space: nowrap;
-						overflow: hidden;
-						text-overflow: ellipsis;
-						flex-grow: 2;
-						margin: 0 0.5rem;
 						user-select: none;
 					}
 				}

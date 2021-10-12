@@ -70,9 +70,11 @@ const input = document.getElementById("input");
 const list = document.querySelector(".todo__list");
 let userInput = input.value;
 let idToken = 0;
+let itemTitles = document.querySelectorAll(".item__title");
 input.value = "";
 // Update the variables
 function setVariables() {
+    itemTitles = document.querySelectorAll(".item__title");
     items = document.querySelectorAll(".todo__item");
     itemsCompleted = document.querySelectorAll(".todo__item--completed");
     checkButtons = document.querySelectorAll(".item__button--check");
@@ -91,6 +93,7 @@ function setListeners() {
     items.forEach(item => item.addEventListener("drop", event => {
         drop(event, item);
     }));
+    itemTitles.forEach(title => checkOverflow(title));
 }
 setListeners();
 // Toggle whether an item's completed or not
@@ -191,6 +194,7 @@ function createNewItem() {
     let newItem = document.createElement("div");
     let newCompletedButton = document.createElement("button");
     let newCloseButton = document.createElement("button");
+    let newTextbox = document.createElement("div");
     let newTitle = document.createElement("p");
     let newText = document.createTextNode(userInput);
     newItem.classList.add("todo__item");
@@ -198,10 +202,12 @@ function createNewItem() {
     newCompletedButton.classList.add("item__button--check");
     newCloseButton.classList.add("item__button");
     newCloseButton.classList.add("item__button--close");
+    newTextbox.classList.add("item__textbox");
     newTitle.classList.add("item__title");
     newItem.appendChild(newCompletedButton);
     newTitle.appendChild(newText);
-    newItem.appendChild(newTitle);
+    newTextbox.appendChild(newTitle);
+    newItem.appendChild(newTextbox);
     newItem.appendChild(newCloseButton);
     newItem.setAttribute("draggable", true);
     list.appendChild(newItem);
@@ -213,9 +219,44 @@ function createNewItem() {
     setListeners();
 }
 // Show item's overflown text
+// Check if item's title is overflowing
+function checkOverflow(title) {
+    let elementWidth = title.scrollWidth;
+    let textboxWidth = title.parentElement.clientWidth;
+    if ((elementWidth - textboxWidth) > 0) {
+        title.addEventListener("click", scroll);
+        title.style.cursor = "pointer";
+    }
+}
+// Scroll the overflown content back and forth on click
+function scroll() {
+    this.style.overflow = "visible";
+    this.style.transition = "0s";
+    let overflow = this.scrollWidth - this.parentElement.clientWidth;
+    let translation = 0;
+    const element = this;
+    window.requestAnimationFrame(scrollLeft);
+    function scrollLeft() {
+        translation++;
+        element.style.transform = `translateX(-${translation}px)`;
+        if (translation < (overflow + 40))
+            window.requestAnimationFrame(scrollLeft);
+        else if (translation >= (overflow + 40))
+            window.requestAnimationFrame(scrollRight);
+    }
+    function scrollRight() {
+        translation--;
+        element.style.transform = `translateX(-${translation}px)`;
+        if (translation > 0)
+            window.requestAnimationFrame(scrollRight);
+        if (translation <= 0) {
+            element.style.overflow = "hidden";
+            element.style.transition = "2.5s";
+        }
+    }
+}
 // Reorder items by dragging
 let dropPosition;
-let isDragging = false;
 // Drag and drop functions
 // Start dragging
 function dragStart(event, item) {
@@ -229,14 +270,25 @@ function dragOver(event, item) {
     let dropTarget = item.getBoundingClientRect();
     if (event.clientY <= (dropTarget.top + (dropTarget.height / 2))) {
         dropPosition = "above";
+        // item.classList.add("todo__item--dropAbove");
+        // item.classList.remove("todo__item--dropBelow");
     }
     if (event.clientY > (dropTarget.top + (dropTarget.height / 2))) {
         dropPosition = "below";
+        // item.classList.add("todo__item--dropBelow");
+        // item.classList.remove("todo__item--dropAbove");
     }
 }
+// items.forEach(item => item.addEventListener("drop", event => {
+//     drop(event, item);        
+// }));
+// items.forEach(item => item.addEventListener("dragleave", dragLeave));
+// function dragLeave(this: any) {
+//     this.classList.remove("todo__item--dropAbove");
+//     this.classList.remove("todo__item--dropBelow");
+// }
 // Drop the dragged item
 function drop(event, item) {
-    var _a;
     event.preventDefault();
     let data = event.dataTransfer.getData("text");
     if (dropPosition == "above") {
@@ -246,7 +298,9 @@ function drop(event, item) {
         list.insertBefore(document.getElementById(data), item.nextElementSibling);
     }
     document.getElementById(data).classList.remove("todo__item--dragging");
-    (_a = document.getElementById(data)) === null || _a === void 0 ? void 0 : _a.style.transition = "2.5s";
+    document.getElementById(data).style.transition = "2.5s";
+    // item.classList.remove("todo__item--dropAbove");
+    // item.classList.remove("todo__item--dropBelow");
     event.dataTransfer.clearData();
 }
 //# sourceMappingURL=script.js.map

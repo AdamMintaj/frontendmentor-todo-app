@@ -395,18 +395,22 @@ html {
   background-color: transparent;
 }
 
-.body .main .todo__item .item__title {
-  font-size: 0.8rem;
-  height: 40%;
-  line-height: 1.2rem;
-  text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.body .main .todo__item .item__textbox {
   -webkit-box-flex: 2;
       -ms-flex-positive: 2;
           flex-grow: 2;
   margin: 0 0.5rem;
+  overflow: hidden;
+}
+
+.body .main .todo__item .item__title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  height: 40%;
+  line-height: 1.2rem;
+  text-align: left;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
