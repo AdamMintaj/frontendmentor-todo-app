@@ -40,7 +40,8 @@ $itemBorderDark: hsl(237, 14%, 26%);
 	$itemTitleColor,
 	$itemCompletedText,
 	$menuButtons,
-	$backgroundDragging
+	$backgroundDragging,
+	$bodyBackground
 ) {
 	.todo {
 		&__list {
@@ -91,6 +92,22 @@ $itemBorderDark: hsl(237, 14%, 26%);
 
 			&--dragging {
 				background-color: $backgroundDragging;
+			}
+
+			&--dropAbove {
+				background-image: linear-gradient(
+					to bottom,
+					$bodyBackground,
+					$itemBackground
+				);
+			}
+
+			&--dropBelow {
+				background-image: linear-gradient(
+					to bottom,
+					$itemBackground,
+					$bodyBackground
+				);
 			}
 		}
 
@@ -255,7 +272,8 @@ html {
 				$primaryTextLight,
 				$secondaryTextLight,
 				$secondaryTextLight,
-				$almostWhite
+				$almostWhite,
+				$backgroundLight
 			);
 		}
 
@@ -266,7 +284,8 @@ html {
 				$primaryTextDark,
 				$itemBorderDark,
 				$darkTwo,
-				$itemBorderDark
+				$itemBorderDark,
+				$backgroundDark
 			);
 		}
 
@@ -369,20 +388,10 @@ html {
 
 				&--dropAbove {
 					transition: 0s;
-					background-image: linear-gradient(
-						to bottom,
-						$backgroundLight,
-						$itemBackgroundLight
-					);
 				}
 
 				&--dropBelow {
 					transition: 0s;
-					background-image: linear-gradient(
-						to bottom,
-						$itemBackgroundLight,
-						$backgroundLight
-					);
 				}
 
 				.item {

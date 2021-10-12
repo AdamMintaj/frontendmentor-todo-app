@@ -174,6 +174,16 @@ html {
   background-color: #e4e5f1;
 }
 
+.body .main--light .todo__item--dropAbove {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#d2d3db), to(#fafafa));
+  background-image: linear-gradient(to bottom, #d2d3db, #fafafa);
+}
+
+.body .main--light .todo__item--dropBelow {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#d2d3db));
+  background-image: linear-gradient(to bottom, #fafafa, #d2d3db);
+}
+
 .body .main--light .todo__menu {
   background-color: #fafafa;
   color: #9394a5;
@@ -230,6 +240,16 @@ html {
 
 .body .main--dark .todo__item--dragging {
   background-color: #393a4c;
+}
+
+.body .main--dark .todo__item--dropAbove {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#161722), to(#25273c));
+  background-image: linear-gradient(to bottom, #161722, #25273c);
+}
+
+.body .main--dark .todo__item--dropBelow {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#25273c), to(#161722));
+  background-image: linear-gradient(to bottom, #25273c, #161722);
 }
 
 .body .main--dark .todo__menu {
@@ -367,15 +387,11 @@ html {
 .body .main .todo__item--dropAbove {
   -webkit-transition: 0s;
   transition: 0s;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#d2d3db), to(#fafafa));
-  background-image: linear-gradient(to bottom, #d2d3db, #fafafa);
 }
 
 .body .main .todo__item--dropBelow {
   -webkit-transition: 0s;
   transition: 0s;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#d2d3db));
-  background-image: linear-gradient(to bottom, #fafafa, #d2d3db);
 }
 
 .body .main .todo__item .item__button {
