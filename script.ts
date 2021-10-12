@@ -1,4 +1,34 @@
-// These variables only control theme switcher
+// Theme switcher 
+    // Theme switcher variables
+    // Theme switcher
+    // Change between sun and moon icon
+    // Change between light and dark version of banner image
+
+// TODO app
+    // Buttons, items and other variables that control the app
+    // Update the variables
+    // Add event listeners to new items
+    // Toggle whether an item's completed or not
+    // Close a completed item
+    // Count the number of uncompleted items
+    // Clear all completed items
+    // Browse menu
+    // Set an id for every item
+    // Add new memos
+    // Show item's overflown text
+    // Check if item's title is overflowing
+    // Scroll the overflown content back and forth on click
+
+// Reorder items by dragging
+    // Drag and drop functions
+        // Start dragging
+        // Calculate whether the element should be dropped above or below target
+        // Drop the dragged item
+
+// _______________________________________________________________________________________________
+
+// Theme switcher
+    // Theme switcher variables 
 
     const checkbox:HTMLInputElement = document.getElementById("checkbox")!;
     const toggleBackground: HTMLElement = document.querySelector(".toggle__background")!;
@@ -119,15 +149,15 @@
     setListeners();
     
 // Toggle whether an item's completed or not
-    function markAsCompleted() {
-        this.parentElement.classList.toggle("todo__item--completed");
+    function markAsCompleted(this:HTMLElement) {
+        this.parentElement!.classList.toggle("todo__item--completed");
         setVariables();
         setCounter();
     }
     
 // Close a completed item
-    function close() {
-        this.parentElement.remove();
+    function close(this:HTMLElement) {
+        this.parentElement!.remove();
         setVariables();
         setCounter();
     }
@@ -252,7 +282,7 @@ items.forEach(item => {
         newTextbox.appendChild(newTitle);
         newItem.appendChild(newTextbox);
         newItem.appendChild(newCloseButton);
-        newItem.setAttribute("draggable", true);
+        newItem.setAttribute("draggable", "true");
         list.appendChild(newItem);
 
         newItem.setAttribute("id", idToken.toString());

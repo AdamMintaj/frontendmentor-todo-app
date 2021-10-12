@@ -209,7 +209,7 @@ function createNewItem() {
     newTextbox.appendChild(newTitle);
     newItem.appendChild(newTextbox);
     newItem.appendChild(newCloseButton);
-    newItem.setAttribute("draggable", true);
+    newItem.setAttribute("draggable", "true");
     list.appendChild(newItem);
     newItem.setAttribute("id", idToken.toString());
     idToken++;
