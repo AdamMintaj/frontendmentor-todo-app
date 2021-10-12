@@ -14,7 +14,7 @@
     // 2.7 Clear all completed items
     // 2.8 Browse menu
     // 2.9 Set an id for every item
-    // 2.10 Add new memos
+    // 2.10 Add new items
     // 2.11 Show item's overflown text
         // 2.11.1 Check if item's title is overflowing
         // 2.11.2 Scroll the overflown content back and forth on click
@@ -27,7 +27,7 @@
 
 // 1.0 Theme switcher
     // 1.1 Theme switcher variables 
-    const checkbox:HTMLInputElement = document.getElementById("checkbox")!;
+    const checkbox:HTMLInputElement = document.getElementById("checkbox");
     const toggleBackground: HTMLElement = document.querySelector(".toggle__background")!;
     const banner:HTMLElement = document.querySelector(".banner")!;
     let rotation:number = 0;
@@ -94,7 +94,7 @@
 
 // 2.0 TODO app
     // 2.1 Buttons, items and other variables that control the app
-    let items = document.querySelectorAll(".todo__item");
+    let items: HTMLElement[] = Array.from(document.querySelectorAll(".todo__item"));
     let itemsCompleted = document.querySelectorAll(".todo__item--completed");
     let checkButtons = document.querySelectorAll(".item__button--check");
     let closeButtons = document.querySelectorAll(".item__button--close");
@@ -109,7 +109,7 @@
     const list = document.querySelector(".todo__list")!;
     let userInput: string = input.value;
     let idToken: number = 0;
-    let itemTitles = document.querySelectorAll(".item__title");
+    let itemTitles: HTMLElement[] = Array.from(document.querySelectorAll(".item__title"));
     
     input.value = "";
     
@@ -169,7 +169,6 @@
     setCounter();
 
     // 2.7 Clear all completed items
-
     clearAllButton.addEventListener("click", ()=> {
         itemsCompleted.forEach(item => item.remove());
         setVariables();
@@ -177,7 +176,6 @@
     });
 
     // 2.8 Browse menu
-
     showAllButton.addEventListener("click", function (this:HTMLElement) {
         showAll();
         markActiveButton(this);
@@ -225,14 +223,12 @@
     }
 
     // 2.9 Set an id for every item
-
     items.forEach(item => {
         item.setAttribute("id", idToken.toString());
         idToken++;
     });
 
-    // 2.10 Add new memos
-
+    // 2.10 Add new items
     addNewButton.addEventListener("click", createNewItem);
     input.addEventListener("keydown", (event)=> {
         if(event.key === "Enter")
@@ -349,7 +345,7 @@
 
         // 2.12.2 Calculate whether the element should be dropped above or below target
         // Mark the place where the item is going to be dropped
-            function dragOver(event, item) {
+            function dragOver(event:DragEvent, item:HTMLElement) {
                 event.preventDefault();
                 let dropTarget = item.getBoundingClientRect();
 
@@ -371,7 +367,7 @@
             }
 
         // 2.12.3 Drop the dragged item
-            function drop(event, item) {
+            function drop(event, item:HTMLElement) {
                 event.preventDefault();
                 let data = event.dataTransfer.getData("text");
 
