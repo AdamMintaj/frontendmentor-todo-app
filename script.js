@@ -25,7 +25,7 @@
 // _______________________________________________________________________________________________
 // 1.0 Theme switcher
 // 1.1 Theme switcher variables 
-const checkbox = document.getElementById("checkbox");
+const checkbox = document.getElementsByTagName("input")[0];
 const toggleBackground = document.querySelector(".toggle__background");
 const banner = document.querySelector(".banner");
 let rotation = 0;
@@ -92,7 +92,7 @@ const showAllButton = document.getElementById("showAll");
 const showActiveButton = document.getElementById("showActive");
 const showCompletedButton = document.getElementById("showCompleted");
 const addNewButton = document.querySelector(".newItem__button--new");
-const input = document.getElementById("input");
+const input = document.getElementsByTagName("input")[1];
 const list = document.querySelector(".todo__list");
 let userInput = input.value;
 let idToken = 0;
@@ -100,8 +100,8 @@ let itemTitles = Array.from(document.querySelectorAll(".item__title"));
 input.value = "";
 // 2.2 Update the variables
 function setVariables() {
-    itemTitles = document.querySelectorAll(".item__title");
-    items = document.querySelectorAll(".todo__item");
+    itemTitles = Array.from(document.querySelectorAll(".item__title"));
+    items = Array.from(document.querySelectorAll(".todo__item"));
     itemsCompleted = document.querySelectorAll(".todo__item--completed");
     checkButtons = document.querySelectorAll(".item__button--check");
     closeButtons = document.querySelectorAll(".item__button--close");
@@ -312,6 +312,7 @@ function dragLeave() {
 }
 // 2.12.3 Drop the dragged item
 function drop(event, item) {
+    var _a;
     event.preventDefault();
     let data = event.dataTransfer.getData("text");
     if (dropPosition == "above") {
@@ -324,6 +325,6 @@ function drop(event, item) {
     document.getElementById(data).style.transition = "2.5s";
     item.classList.remove("todo__item--dropAbove");
     item.classList.remove("todo__item--dropBelow");
-    event.dataTransfer.clearData();
+    (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.clearData();
 }
 //# sourceMappingURL=script.js.map

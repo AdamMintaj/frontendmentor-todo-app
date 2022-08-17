@@ -27,7 +27,7 @@
 
 // 1.0 Theme switcher
     // 1.1 Theme switcher variables 
-    const checkbox:HTMLInputElement = document.getElementById("checkbox");
+    const checkbox:HTMLInputElement = document.getElementsByTagName("input")[0];
     const toggleBackground: HTMLElement = document.querySelector(".toggle__background")!;
     const banner:HTMLElement = document.querySelector(".banner")!;
     let rotation:number = 0;
@@ -105,7 +105,7 @@
     const showActiveButton = document.getElementById("showActive")!;
     const showCompletedButton = document.getElementById("showCompleted")!;
     const addNewButton = document.querySelector(".newItem__button--new")!;
-    const input: HTMLInputElement = document.getElementById("input")!;
+    const input: HTMLInputElement = document.getElementsByTagName("input")[1];
     const list = document.querySelector(".todo__list")!;
     let userInput: string = input.value;
     let idToken: number = 0;
@@ -115,8 +115,8 @@
     
     // 2.2 Update the variables
     function setVariables() {
-        itemTitles = document.querySelectorAll(".item__title");
-        items = document.querySelectorAll(".todo__item");
+        itemTitles = Array.from(document.querySelectorAll(".item__title"));
+        items = Array.from(document.querySelectorAll(".todo__item"));
         itemsCompleted = document.querySelectorAll(".todo__item--completed");
         checkButtons = document.querySelectorAll(".item__button--check");
         closeButtons = document.querySelectorAll(".item__button--close");
@@ -337,8 +337,8 @@
         let dropPosition: "above" | "below";
 
         // 2.12.1 Start dragging
-            function dragStart(event, item: HTMLElement) {
-                event.dataTransfer.setData("text/plain", item.getAttribute("id"));
+            function dragStart(event:DragEvent, item: HTMLElement) {
+                event.dataTransfer!.setData("text/plain", item.getAttribute("id")!);
                 item.classList.add("todo__item--dragging");
                 item.style.transition = "0s";
             }
@@ -367,9 +367,9 @@
             }
 
         // 2.12.3 Drop the dragged item
-            function drop(event, item:HTMLElement) {
+            function drop(event:DragEvent, item:HTMLElement) {
                 event.preventDefault();
-                let data = event.dataTransfer.getData("text");
+                let data: string = event.dataTransfer!.getData("text");
 
                 if(dropPosition == "above") {
                     list.insertBefore(document.getElementById(data)!, item);
@@ -383,5 +383,5 @@
                 item.classList.remove("todo__item--dropAbove");
                 item.classList.remove("todo__item--dropBelow");
                 
-                event.dataTransfer.clearData();
+                event.dataTransfer?.clearData();
             }
